@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "134055692731",
+    "project_id": "learning-assistant-7b8e2",
+    "storage_bucket": "learning-assistant-7b8e2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134055692731:android:5d93e36d9b416b80ebdc9e",
+        "android_client_info": {
+          "package_name": "com.example.learning_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0nPQ7lqieMiXHFxkJNw0L6NdsbZ77MCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
