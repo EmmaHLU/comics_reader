@@ -13,6 +13,7 @@ class ComicModel extends Comic{
     super.title,
     super.day,
     super.explanation,
+    super.localImage,
     required super.num,
     required super.img
   });
@@ -30,14 +31,34 @@ class ComicModel extends Comic{
       alt: json['alt'] as String?,
       img: json['img'] as String, // required
       title: json['title'] as String?,
+      localImage: json.keys.contains('localImage')? json['localImage']:"",
       day: json['day'] as String?,
-      explanation: json['explanation'] as String?, // optional
+      explanation: json['explanation']!= null? json['explanation'] as String?: "", // optional
     );
+  }
+
+  /// Convert ComicModel to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'month': month,
+      'num': this.num,
+      'link': link,
+      'year': year,
+      'news': news,
+      'safe_title': safeTitle,
+      'transcript': transcript,
+      'alt': alt,
+      'img': img,
+      'title': title,
+      'day': day,
+      'explanation': explanation,
+    };
   }
   
 /// Create ComicModel from domain entity
 factory ComicModel.fromEntity(Comic entity) {
   return ComicModel(
+    localImage: entity.localImage,
     month: entity.month,
     num: entity.num,
     link: entity.link,
@@ -56,6 +77,7 @@ factory ComicModel.fromEntity(Comic entity) {
 /// Convert to domain entity
 Comic toEntity() {
   return Comic(
+    localImage: localImage,
     month: month,
     num: this.num,
     link: link,
