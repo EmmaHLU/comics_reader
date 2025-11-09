@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:learning_assistant/core/error/failures.dart';
 import 'package:learning_assistant/core/utils/typedefs.dart';
@@ -11,13 +10,16 @@ abstract class ComicRepository {
   ///returns either <Failure, Comic>
   Future<Either<Failure, Comic>> getComic({required int comicNum});
 
-   ///get all comics
+   ///get the first track of comics
   ///returns either <Failure, Comic>
-  Future<Either<Failure, List<Comic>>> getAllComics();
+  Future<Either<Failure, List<Comic>>> getComicList();
 
   ///save a comic locally
   ///returns either <Failure, String>
   Future<Either<Failure, String>> saveComic({required int comicNum});
+
+  //delete a locally saved comic
+  Future<Either<Failure, String>> deleteComic({required int comicNum});
 
   ///save a comic locally
   ///returns either <Failure, String>
@@ -41,10 +43,6 @@ abstract class ComicRepository {
 
   ///get comic explaination
   ///returns either <Failure, String>
-  Future<Either<Failure, String>> getComicExplanation({required int comicNum});
-
-  ///get new comic notification
-  ///returns either <Failure, String>
-  Future<Either<Failure, String>> getComicNotification();
+  Future<Either<Failure, String>> getComicExplanation({required int comicNum,required String title});
   
 }

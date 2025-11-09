@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 class Comic extends Equatable{
   final int num;
   final String img;
+  final String? localImage;
   final String? safeTitle;
   final String? transcript;
   final String? alt;
@@ -16,6 +17,7 @@ class Comic extends Equatable{
   final String? explanation;
 
   const Comic({
+    this.localImage,
     this.month,
     this.link,
     this.year,
@@ -45,6 +47,7 @@ class Comic extends Equatable{
     img,
     link,
     news,
+    localImage,
   ];
   
   @override
