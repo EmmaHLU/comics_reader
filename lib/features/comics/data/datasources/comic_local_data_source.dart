@@ -201,7 +201,7 @@ class FavoriateComicDatabase {
   }) async {
     // 1. Read the existing list (or start empty)
     final comics = (await _store.record('comics').get(_db) as List<dynamic>?)
-      ?.cast<String>()
+      ?.cast<int>()
       .toList() // This creates a new mutable copy
       ?? [];
     // 2. Add the new URL

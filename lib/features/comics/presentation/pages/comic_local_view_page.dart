@@ -51,7 +51,7 @@ class _ComicLocalViewPageState extends State<ComicLocalViewPage>{
               ),
               actions: [
                 ComicShareButton(comicNum: widget.comics[curIndex].num),
-                ComicFavoriateButton(comicNum: widget.comics[curIndex].num),
+                ComicFavoriateButton(comicNum: widget.comics[curIndex].num, isFavoriateInitially:true),
                 ComicExplainButton(comicNum: widget.comics[curIndex].num, title: widget.comics[curIndex].safeTitle!,),
                 ComicDetailButton(comic: widget.comics[curIndex],),
               ],
