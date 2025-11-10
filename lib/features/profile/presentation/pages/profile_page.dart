@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_assistant/core/di/injection_container.dart';
 import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
-import 'package:learning_assistant/core/localization/language_provider.dart';
 import 'package:learning_assistant/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_assistant/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_assistant/features/auth/presentation/bloc/auth_state.dart';
@@ -13,7 +11,6 @@ import 'package:learning_assistant/features/profile/presentation/bloc/profile_bl
 import 'package:learning_assistant/features/profile/presentation/bloc/profile_event.dart';
 import 'package:learning_assistant/features/profile/presentation/bloc/profile_state.dart';
 import 'package:learning_assistant/features/profile/presentation/widgets/language_selector.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
 

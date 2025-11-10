@@ -5,6 +5,7 @@ import 'package:learning_assistant/features/comics/domain/entities/comic_entity.
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_event.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_state.dart';
+import 'package:learning_assistant/features/comics/presentation/pages/comic_local_view_page.dart';
 import 'package:learning_assistant/features/comics/presentation/pages/comic_view_page.dart';
 import 'package:learning_assistant/features/comics/presentation/widgets/comic_detail_button.dart';
 import 'package:learning_assistant/features/comics/presentation/widgets/comic_explain_button.dart';
@@ -107,8 +108,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
                 onTap: (){
-                  context.read<ComicBloc>().add(ComicGetRequest(num: comic.num));
-                  Navigator.push(context,  MaterialPageRoute(builder:  (_) => ComicViewPage(comic: comic,)));
+                  Navigator.push(context,  MaterialPageRoute(builder:  (_) => ComicLocalViewPage(comics: comics, index: index,)));
                 },
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

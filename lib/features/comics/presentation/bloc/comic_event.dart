@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 
 /// Base class for all comic events
 abstract class ComicEvent extends Equatable {

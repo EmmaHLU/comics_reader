@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "meditate-with-me-e6666",
+    "la": "learning-assistant-7b8e2"
+  },
+  "targets": {},
+  "etags": {}
+}

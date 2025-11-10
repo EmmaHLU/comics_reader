@@ -1,1 +1,58 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"learning-assistant-7b8e2","appId":"1:134055692731:android:5d93e36d9b416b80ebdc9e","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"learning-assistant-7b8e2","appId":"1:134055692731:ios:625e56551e1fbc15ebdc9e","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"learning-assistant-7b8e2","appId":"1:134055692731:ios:625e56551e1fbc15ebdc9e","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"learning-assistant-7b8e2","configurations":{"android":"1:134055692731:android:5d93e36d9b416b80ebdc9e","ios":"1:134055692731:ios:625e56551e1fbc15ebdc9e","macos":"1:134055692731:ios:625e56551e1fbc15ebdc9e","web":"1:134055692731:web:c46bee9029a5feddebdc9e","windows":"1:134055692731:web:75d9690d70414c95ebdc9e"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "learning-assistant-7b8e2",
+          "appId": "1:134055692731:android:5d93e36d9b416b80ebdc9e",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "learning-assistant-7b8e2",
+          "appId": "1:134055692731:ios:625e56551e1fbc15ebdc9e",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "learning-assistant-7b8e2",
+          "appId": "1:134055692731:ios:625e56551e1fbc15ebdc9e",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "learning-assistant-7b8e2",
+          "configurations": {
+            "android": "1:134055692731:android:5d93e36d9b416b80ebdc9e",
+            "ios": "1:134055692731:ios:625e56551e1fbc15ebdc9e",
+            "macos": "1:134055692731:ios:625e56551e1fbc15ebdc9e",
+            "web": "1:134055692731:web:c46bee9029a5feddebdc9e",
+            "windows": "1:134055692731:web:75d9690d70414c95ebdc9e"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ]
+}
