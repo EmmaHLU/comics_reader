@@ -1,37 +1,38 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_event.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_state.dart';
-import 'package:learning_assistant/features/comics/presentation/widgets/comic_detail_button.dart';
 import 'package:learning_assistant/features/comics/presentation/pages/comic_view_page.dart';
+import 'package:learning_assistant/features/comics/presentation/widgets/comic_detail_button.dart';
+import 'package:learning_assistant/features/comics/presentation/widgets/comic_explain_button.dart';
+import 'package:learning_assistant/features/comics/presentation/widgets/comic_share_button.dart';
 import 'package:learning_assistant/shared/widgets/gradient_scaffold.dart';
 
-class ComicExplorePage extends StatefulWidget {
+class FavoriatePage extends StatefulWidget {
 
-  const ComicExplorePage({
+  // Action callbacks
+  final void Function(int)? onTap;
+
+
+  const FavoriatePage({
     super.key,
+    this.onTap,
   });
 
   @override
-  State<ComicExplorePage> createState() => _ComicExplorePageState();
+  State<FavoriatePage> createState() => _FavoriatePageState();
 }
 
-class _ComicExplorePageState extends State<ComicExplorePage> {
+class _FavoriatePageState extends State<FavoriatePage> {
   final ScrollController _scrollController = ScrollController();
   List<Comic> comics = [];
 
   @override
   void initState() {
     super.initState();
-    // Trigger fetching the comic list only once
-    final bloc = context.read<ComicBloc>();
-    if (bloc.state is! ComicsLoadedState) {
-      bloc.add(ComicGetListRequest());
-    }
   }
 
   @override
@@ -42,48 +43,51 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final tr = AppLocalizations.of(context)!;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ComicBloc>().add(ComicLoadFavoriatesRequest());
+    });
+    
     return BlocConsumer<ComicBloc, ComicState>(
       listener: (context, state) {
-        if (state is ComicsLoadedState) {
-          setState(() {
-            comics = state.comics;
-          });
+        if (state is ComicFavoriateLoadedState) {
+          comics = state.comics;
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _scrollController.animateTo(
-              _scrollController.position.minScrollExtent,
+              _scrollController.position.maxScrollExtent,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOut,
             );
           });
-        } else if (state is ComicFailedState) {
+        } else if (state is ComicFavoriateLFailedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Failed to save comic.")),
+            const SnackBar(content: Text("Failed to load my favoriates")),
           );
         };   
       },
       builder:  (context, state) {
-        if (state is ComicLoadingState){
+        if (state is ComicFavoriateLoadingState){
           return const Center(child: CircularProgressIndicator(),);
         }
         return GradientScaffold(
           appBar: AppBar(
-            title: Text(tr.explore), backgroundColor: Colors.transparent),
-          body: ListView.builder(
+            title: Text("My Favoriates"),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context); // Safely go back
+              },            
+            ),
+            backgroundColor: Colors.transparent,
+            actions: [
+             IconButton(
+              onPressed: (){context.read<ComicBloc>().add(ComicLoadFavoriatesRequest());}, 
+              icon: Icon(Icons.refresh)),
+            ],
+          ),
+          body:ListView.builder(
             controller: _scrollController,
-            itemCount: comics.length + 1, // extra item for load more button
+            itemCount: comics.length, // extra item for load more button
             itemBuilder: (context, index) {
-              if (index == comics.length) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed:(){context.read<ComicBloc>().add(ComicGetListRequest());} ,
-                      child: Text(tr.loadMore),
-                    ),
-                  ),
-                );
-              }
 
               final comic = comics[index];
 
@@ -109,16 +113,15 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // ComicShareButton(comicNum: comic.num),
-                    // ComicFavoriateButton(comicNum: comic.num),
-                    // ComicExplainButton(comicNum: comic.num),
+                    ComicShareButton(comicNum: comic.num),
+                    ComicExplainButton(comicNum: comic.num, title: comic.safeTitle!,),
                     ComicDetailButton(comic: comic)
                   ],
                 ),
               );
             },
-          ),
-        ); 
+          )
+        );
       }
     );
   }
