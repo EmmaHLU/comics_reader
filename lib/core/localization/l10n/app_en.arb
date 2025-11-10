@@ -38,5 +38,6 @@
   "details": "Details",
   "search":"Search",
   "view":"View",
-  "favorites":"Favorite"
+  "favorites":"Favorite",
+  "reader": "Reader"
 }

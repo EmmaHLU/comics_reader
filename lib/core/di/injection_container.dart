@@ -3,6 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:learning_assistant/features/comics/data/datasources/comic_local_data_source.dart';
+import 'package:learning_assistant/features/comics/data/datasources/comic_remote_data_source.dart';
+import 'package:learning_assistant/features/comics/data/repositories/comic_repository_impl.dart';
+import 'package:learning_assistant/features/comics/domain/repositories/comic_repository.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/check_details.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/delete_lcoal_comic.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/explain_comic.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/get_local_comic_list.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/get_remote_comic.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/get_remote_comic_list.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/save_comic.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/search_comic.dart';
+import 'package:learning_assistant/features/comics/domain/usecases/share_comic.dart';
+import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 
 import '../../features/auth/data/datasources/auth_local_datasource.dart';
 import '../../features/auth/data/datasources/auth_remote_datasource.dart';
@@ -100,12 +114,56 @@ Future<void> _initAuth() async {
 }
 
 Future<void> _initComics() async {
-  // Repository 
+  // External dependencies
+  final dbFavorite = FavoriateComicDatabase();
+  await dbFavorite.init();
 
+  // Data sources
+  sl.registerLazySingleton<ComicRemoteDataSource>(
+    () => ComicRemoteDataSourceImpl(
+    ),
+  );
+
+  sl.registerLazySingleton<ComicLocalDataSource>(
+    () => ComicLocalDataSourceImpl(
+      favoriateDB: dbFavorite
+    ),
+  );
+
+  // Repository
+  sl.registerLazySingleton<ComicRepository>(
+    () => ComicRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+    ),
+  );
 
   // Use cases
-
+  sl.registerLazySingleton(() => GetDetails(sl()));
+  sl.registerLazySingleton(() => GetExplanation(sl()));
+  sl.registerLazySingleton(() => GetComicList(sl()));
+  sl.registerLazySingleton(() => GetComic(sl()));
+  sl.registerLazySingleton(() => SaveComic(sl()));
+  sl.registerLazySingleton(() => SearchComicNum(sl()));
+  sl.registerLazySingleton(() => SearchComicText(sl()));
+  sl.registerLazySingleton(() => ShareComic(sl()));
+  sl.registerLazySingleton(() => GetLocalComicList(sl()));
+  sl.registerLazySingleton(() => DeleteLcoalComic(sl()));
   // BLoC
+  sl.registerFactory(
+    () => ComicBloc(
+      getDetails: sl(),
+      getExplanation: sl(),
+      getComicList: sl(),
+      getComic: sl(),
+      saveComic: sl(),
+      searchComicNum: sl(),
+      searchComicText: sl(),
+      shareComic: sl(),
+      getLocalComicList: sl(),
+      deleteLcoalComic: sl(),
+    ),
+  );
 
 }
 /// Initialize Profile feature dependencies

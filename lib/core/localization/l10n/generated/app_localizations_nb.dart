@@ -124,4 +124,7 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get favorites => 'Favoritter';
+
+  @override
+  String get reader => 'Leser';
 }

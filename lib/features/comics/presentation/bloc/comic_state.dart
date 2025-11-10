@@ -122,11 +122,38 @@ class ComicNotFoundState extends ComicState{
 }
 
 //state when a comic is not found
-class ComicSearchingState extends ComicState{
-  const ComicSearchingState();
+class ComicSearchingByNumState extends ComicState{
+  const ComicSearchingByNumState();
+}
+
+class ComicNumSearchFoundState extends ComicState{
+  final Comic comic;
+  const ComicNumSearchFoundState({required this.comic});
+}
+class ComicNumSearchNotFoundState extends ComicState{
+  final Failure failure;
+  const ComicNumSearchNotFoundState({required this.failure});
+}
+//state when a comic is not found
+class ComicSearchingByTextState extends ComicState{
+  const ComicSearchingByTextState();
+}
+
+class ComicTextSearchFoundState extends ComicState{
+  final Comic comic;
+  const ComicTextSearchFoundState({required this.comic});
+}
+class ComicTextSearchNotFoundState extends ComicState{
+  final Failure failure;
+  const ComicTextSearchNotFoundState({required this.failure});
 }
 
 class ComicFoundState extends ComicState{
   final Comic comic;
   const ComicFoundState({required this.comic});
+}
+
+class NewComicNotiReceivedState extends ComicState{
+  final String message;
+  const NewComicNotiReceivedState({required this.message});
 }

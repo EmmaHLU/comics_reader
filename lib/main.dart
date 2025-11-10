@@ -1,13 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning_assistant/core/di/injection_container.dart';
 import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/core/localization/language_provider.dart';
+import 'package:learning_assistant/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:learning_assistant/features/auth/presentation/pages/signin_page.dart';
+import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
+import 'package:learning_assistant/features/comics/presentation/pages/comic_explore_page.dart';
+import 'package:learning_assistant/features/comics/presentation/pages/comic_search_page.dart';
+import 'package:learning_assistant/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:learning_assistant/features/profile/presentation/pages/profile_page.dart';
 import 'package:learning_assistant/firebase_options.dart';
+import 'package:learning_assistant/shared/theme/theme.dart';
 import 'package:learning_assistant/shared/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
+
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,11 +27,21 @@ void main() async{
   await initDependencies();
   final languageProvider = LanguageProvider();
   await languageProvider.loadSaved();
+
+  // Schedule periodic task every hour
+  await Workmanager().registerPeriodicTask(
+    "checkXKCDTask",
+    "checkForNewComic",
+    frequency: Duration(hours: 1),
+  );
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<LanguageProvider>.value(value: languageProvider),
-      ],
+        BlocProvider(create: (context) => sl<AuthBloc>()), 
+        BlocProvider(create: (context) => sl<ProfileBloc>()),     
+        BlocProvider(create: (context) => sl<ComicBloc>(),)  
+        ],
       child: MyApp(),
     ),);
 }
@@ -38,10 +58,8 @@ class MyApp extends StatelessWidget {
       locale: provider.locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      title: "Comic Reader",
+      theme: mistBlueTheme,
       home: const SignInPage(autolog: true),
     );
   }
@@ -49,15 +67,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -75,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _pages = [
       // ExplorePage(),
       // Gemini(database: dbchat),
-      ProfilePage(),
+      ComicExplorePage(),
+      ComicSearchPage(),
       ProfilePage(),
     ];
 
@@ -90,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context)!;
     return GradientScaffold(
-      body: _pages[_selectedIndex], // Show selected tab page
+      body: IndexedStack(index:_selectedIndex, children: _pages,), // Show selected tab page
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _navigateToTab,
@@ -106,8 +116,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: tr.profile,
+            icon: Icon(Icons.search),
+            label: tr.explore,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_rounded),
+            label: tr.search,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

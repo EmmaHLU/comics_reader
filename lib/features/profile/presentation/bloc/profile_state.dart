@@ -31,22 +31,6 @@ class ProfileLoaded extends ProfileState {
   List<Object> get props => [profile];
 }
 
-/// State when meditation statistics are loaded
-class ProfileMeditationStatsLoaded extends ProfileState {
-  final Map<String, dynamic> statistics;
-  final Duration totalTime;
-  final int streak;
-
-  const ProfileMeditationStatsLoaded({
-    required this.statistics,
-    required this.totalTime,
-    required this.streak,
-  });
-
-  @override
-  List<Object> get props => [statistics, totalTime, streak];
-}
-
 /// State when profile is updated
 class ProfileUpdated extends ProfileState {
   const ProfileUpdated();

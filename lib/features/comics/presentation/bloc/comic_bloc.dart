@@ -46,6 +46,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     on<ComicExplainRequest>(_onComicExplainRequested);
     on<ComicShareRequest>(_onComicShareRequested);
     on<ComicLoadFavoriatesRequest>(_onComicLoadFavoriatesRequested);
+    on<NewComicNotificationReceived>(_onNewComicNotificationReceived);
   }
 
   ///bussiness logic to handle get the comic request
@@ -79,7 +80,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     ComicSearchNumRequest event,
     Emitter<ComicState> emit,
   )async{
-    emit(const ComicSearchingState());
+    emit(const ComicSearchingByNumState());
     final result = await searchComicNum(event.num);
     result.fold(
       (failure) => emit(ComicNotFoundState(message:"Comic ${event.num} Not Found")),
@@ -91,7 +92,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     ComicSearchTextRequest event,
     Emitter<ComicState> emit,
   )async{
-    emit(const ComicSearchingState());
+    emit(const ComicSearchingByNumState());
     final result = await searchComicText(event.text);
     result.fold(
       (failure) => emit(ComicNotFoundState(message:"Comic with '${event.text}' Not Found")),
@@ -159,5 +160,12 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     result.fold(
       (failure) => emit(ComicShareFaileddState(failure: failure)),
       (result) => emit(ComicSharedState()));
+  }
+
+  Future<void> _onNewComicNotificationReceived(
+    NewComicNotificationReceived event,
+    Emitter emit,
+  )async{
+    emit(NewComicNotiReceivedState(message: event.message));
   }
 }

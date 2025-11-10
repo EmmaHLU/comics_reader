@@ -328,6 +328,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Favorite'**
   String get favorites;
+
+  /// No description provided for @reader.
+  ///
+  /// In en, this message translates to:
+  /// **'Reader'**
+  String get reader;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -124,4 +124,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get favorites => 'Favorite';
+
+  @override
+  String get reader => 'Reader';
 }

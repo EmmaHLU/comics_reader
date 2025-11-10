@@ -60,7 +60,12 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Failed to save comic.")),
           );
-        };   
+        } 
+        if(state is NewComicNotiReceivedState){
+          ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(content: Text(state.message)),
+          );
+        }   
       },
       builder:  (context, state) {
         if (state is ComicLoadingState){

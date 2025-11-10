@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 
 
   Widget buildMetadataTable(Comic comic, BuildContext context) {
+    final tr = AppLocalizations.of(context)!;
     final entries = {
-      "Number": comic.num.toString(),
-      "Title": comic.title,
-      "Safe Title": comic.safeTitle,
-      "Year": comic.year,
-      "Month": comic.month,
-      "Day": comic.day,
-      "Image URL": comic.img,
-      "News": comic.news,
-      "Link": comic.link,
+      tr.num: comic.num.toString(),
+      tr.title: comic.title,
+      tr.safe_title: comic.safeTitle,
+      tr.year: comic.year,
+      tr.month: comic.month,
+      tr.day: comic.day,
+      tr.img: comic.img,
+      tr.news: comic.news,
+      tr.link: comic.link,
     };
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Details",
+          tr.details,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),

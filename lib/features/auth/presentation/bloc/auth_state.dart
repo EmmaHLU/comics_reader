@@ -66,22 +66,3 @@ class AuthSigningOut extends AuthState {
   const AuthSigningOut();
 }
 
-/// State for trial checking
-class AuthCheckingTrial extends AuthState {
-  const AuthCheckingTrial();
-}
-
-/// State for trial initialized
-class AuthTrialInitialized extends AuthState {
-  const AuthTrialInitialized();
-}
-
-/// State for subscription updated
-class AuthSubscriptionUpdated extends AuthState {
-  final bool isSubscribed;
-
-  const AuthSubscriptionUpdated({required this.isSubscribed});
-
-  @override
-  List<Object?> get props => [isSubscribed];
-}

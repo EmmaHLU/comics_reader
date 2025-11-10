@@ -17,6 +17,11 @@ class AppConstants {
   static const String languageCodeKey = 'language_code';
   static const String credentialsKey = 'credentials';
 
+  //Remote Data Sources
+  static const String baseXkcd = 'https://xkcd.com';
+  static const String searchBase = 'https://relevantxkcd.appspot.com/process';
+  static const String explainBase = 'https://www.explainxkcd.com/wiki/api.php';
+
   // Error messages
   static const String networkErrorMessage = 'Please check your internet connection';
   static const String serverErrorMessage = 'Something went wrong on our end';

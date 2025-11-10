@@ -87,3 +87,12 @@ class ComicShareRequest extends ComicEvent{
   @override
   List<Object?> get props => [num];
 }
+
+///get explaination of a comic
+class NewComicNotificationReceived extends ComicEvent{
+  final String message;
+  const NewComicNotificationReceived({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-// need to run 'flutter pub run build_runner build' 
+// need to run 'dart run build_runner build' 
 
 extension GetItInjectableX on GetIt {
   Future<GetIt> init({

@@ -8,9 +8,11 @@ import 'package:learning_assistant/features/auth/presentation/bloc/auth_bloc.dar
 import 'package:learning_assistant/features/auth/presentation/bloc/auth_event.dart';
 import 'package:learning_assistant/features/auth/presentation/bloc/auth_state.dart';
 import 'package:learning_assistant/features/auth/presentation/pages/signin_page.dart';
+import 'package:learning_assistant/features/comics/presentation/pages/comic_favoriates_page.dart';
 import 'package:learning_assistant/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:learning_assistant/features/profile/presentation/bloc/profile_event.dart';
 import 'package:learning_assistant/features/profile/presentation/bloc/profile_state.dart';
+import 'package:learning_assistant/features/profile/presentation/widgets/language_selector.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -141,16 +143,44 @@ Widget _buildProfilePage(BuildContext context, AppLocalizations tr) {
                 Positioned(
                   right: 16,
                   top: 0,
-                  child: _showLanguageSelector(context),
+                  child: LanguageSelector(context),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 20),
-            // 底部退出按钮
-          Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton.icon(
+         Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // 🔹 Go to Favorites button
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple.shade200,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                ),
+                onPressed: () {
+                  // Navigate to favorites page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const FavoriatePage()),
+                  );
+                },
+                icon: const Icon(Icons.favorite, color: Colors.white),
+                label: Text(
+                  tr.favorites,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // 🔹 Logout button
+              ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple.shade100,
                   shape: RoundedRectangleBorder(
@@ -160,9 +190,15 @@ Widget _buildProfilePage(BuildContext context, AppLocalizations tr) {
                 ),
                 onPressed: _signOut,
                 icon: const Icon(Icons.logout, color: Colors.black),
-                label: Text(tr.logOut, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
+                label: Text(
+                  tr.logOut,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                ),
               ),
-            ),
+            ],
+          ),
+        ),
+
           ],
         ),
       ),
@@ -170,33 +206,4 @@ Widget _buildProfilePage(BuildContext context, AppLocalizations tr) {
   );
 }
 
-/// 显示语言选择
-Widget _showLanguageSelector(BuildContext context) {
-  // 可以改成 BottomSheet 或 AlertDialog
-  return DropdownButtonHideUnderline(
-      child: DropdownButton<Locale>(
-        value: context.watch<LanguageProvider>().locale,
-        icon: const Icon(Icons.language, color: Colors.deepPurple),
-        isDense: true, // ✅ more compact vertically
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.grey, // ✅ Make text visible
-        ), // ✅ smaller font
-        alignment: Alignment.topRight,
-        padding: EdgeInsets.zero,
-        items: const [
-          DropdownMenuItem(value: Locale('en'), child: Text('English')),
-          DropdownMenuItem(value: Locale('nb'), child: Text('Norsk')),
-        ],
-        onChanged: (value) {
-          if (value != null) {
-            context.read<LanguageProvider>().setLocale(value);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Language changed to $value')),
-            );
-          }
-        },
-      ),
-    );
-}
 }
