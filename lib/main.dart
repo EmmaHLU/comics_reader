@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       title: "Comic Reader",
-      theme: mistBlueTheme,
+      theme: mistPurpleTheme,
       home: const SignInPage(autolog: true),
     );
   }
@@ -107,16 +107,16 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.deepPurple,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold, // 加粗
+          fontWeight: FontWeight.bold, 
           fontSize: 14,
         ),
         unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold, // 不加粗
+          fontWeight: FontWeight.bold, 
           fontSize: 12,
         ),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.menu_book),
             label: tr.explore,
           ),
           BottomNavigationBarItem(

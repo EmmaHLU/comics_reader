@@ -127,4 +127,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reader => 'Reader';
+
+  @override
+  String get failloadfavoriate => 'Failed to load my favoriates';
+
+  @override
+  String get failshare => 'Failed to share comic.';
+
+  @override
+  String get sharesuccess => 'Comic shared successfully!';
+
+  @override
+  String get toggleFavorite => 'Toggle favorite';
+
+  @override
+  String get errorloading => 'Error loading comic';
+
+  @override
+  String get enterNumText => 'Enter a number or text';
+
+  @override
+  String get failexplaination => 'Failed to load explanation';
 }

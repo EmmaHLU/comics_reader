@@ -1,9 +1,9 @@
 {
   "@@locale": "nb",
-  "appTitle": "Tegneserieleser",
+  "appTitle": "TegneserieLeser",
   "profile": "Profil",
   "comicsCollections": "Tegneseriesamlinger",
-  "myFavoriteComics": "Favoritttegneserier",
+  "myFavoriteComics": "Favoritt-tegneserier",
   "logOut": "Logg ut",
   "explore": "Utforsk",
   "comics": "Tegneserier",
@@ -26,7 +26,7 @@
   "link": "Lenke",
   "year": "År",
   "news": "Nyheter",
-  "safe_title": "Sikkert tittel",
+  "safe_title": "Trygg tittel",
   "transcript": "Manus",
   "alt": "Alternativ tekst",
   "img": "Bilde",
@@ -38,6 +38,13 @@
   "details": "Detaljer",
   "search": "Søk",
   "view": "Vis",
-  "favorites": "Favoritter",
-  "reader": "Leser"
+  "favorites": "Favoritt",
+  "reader": "Leser",
+  "failloadfavoriate": "Kunne ikke laste favorittene mine",
+  "failshare": "Kunne ikke dele tegneserien.",
+  "sharesuccess": "Tegneserien ble delt!",
+  "toggleFavorite": "Bytt favoritt",
+  "errorloading": "Feil ved lasting av tegneserie",
+  "enterNumText": "Skriv inn et tall eller tekst",
+  "failexplaination": "Kunne ikke laste forklaring"
 }

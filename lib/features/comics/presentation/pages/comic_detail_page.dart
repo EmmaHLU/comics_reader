@@ -48,7 +48,7 @@ class ComicDetailPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [
           ComicShareButton(comicNum: comic.num),
-          ComicFavoriateButton(comicNum: comic.num),
+          ComicFavoriateButton(comicNum: comic.num, isFavoriateInitially:comic.isFavorite!),
           ComicExplainButton(comicNum: comic.num, title: comic.safeTitle!,)
         ],
       ),
@@ -82,7 +82,7 @@ class ComicDetailPage extends StatelessWidget {
             /// --- Transcript (if any) ---
             if (comic.transcript!.isNotEmpty)
               ExpansionTile(
-                title: const Text("Transcript"),
+                title:  Text(tr.transcript),
                 initiallyExpanded: false,
                 children: [
                   Padding(

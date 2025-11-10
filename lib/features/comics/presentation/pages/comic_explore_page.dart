@@ -23,7 +23,7 @@ class ComicExplorePage extends StatefulWidget {
 class _ComicExplorePageState extends State<ComicExplorePage> {
   final ScrollController _scrollController = ScrollController();
   List<Comic> comics = [];
-  late final totalComicNum;
+  late final int totalComicNum;
   bool isFirst = true;
 
   @override
@@ -64,7 +64,7 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
           });
         } else if (state is ComicFailedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Failed to save comic.")),
+             SnackBar(content: Text("Failed to load comics.")),
           );
         } 
         if(state is NewComicNotiReceivedState){
@@ -115,7 +115,6 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
                 ),
                 onTap: (){
                   context.read<ComicBloc>().add(ComicGetRequest(num: comic.num));
-                  print("the total number of comics is $totalComicNum");
                   Navigator.push(context,  MaterialPageRoute(builder:  (_) => ComicViewPage(comic: comic, totalComicNum: totalComicNum,)));
                 },
                 trailing: Row(

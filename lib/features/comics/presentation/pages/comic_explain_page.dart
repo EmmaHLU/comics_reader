@@ -40,7 +40,7 @@ class ComicExplainPage extends StatelessWidget {
             );
           } else if (state is ComicFailedState) {
             return Center(
-              child: Text('Failed to load explanation: ${state.failure}'),
+              child: Text('${tr.failexplaination}: ${state.failure}'),
             );
           }
 

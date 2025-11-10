@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_event.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_state.dart';
@@ -41,6 +42,7 @@ class _ComicFavoriateButtonState extends State<ComicFavoriateButton> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context)!;
     return BlocBuilder<ComicBloc, ComicState>(
       
       builder: (context, state)
@@ -50,7 +52,7 @@ class _ComicFavoriateButtonState extends State<ComicFavoriateButton> {
             ? const Icon(Icons.favorite, color: Colors.red)
             : const Icon(Icons.favorite_border),
         onPressed: _toggleFavoriate,
-        tooltip: "Toggle favorite",
+        tooltip: tr.toggleFavorite,
         );
       }
     );

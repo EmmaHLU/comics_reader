@@ -5,7 +5,7 @@ final ColorScheme mistColors = ColorScheme.fromSeed(
     brightness: Brightness.light,
   );
   
-final ThemeData mistBlueTheme = ThemeData(
+final ThemeData mistPurpleTheme = ThemeData(
   useMaterial3: true,
   colorScheme: mistColors,
   primaryColor: mistColors.primary, // reuse from ColorScheme

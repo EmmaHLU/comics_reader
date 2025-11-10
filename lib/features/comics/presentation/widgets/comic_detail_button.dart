@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 import 'package:learning_assistant/features/comics/presentation/pages/comic_detail_page.dart';
 
@@ -9,6 +10,7 @@ class ComicDetailButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context)!;
         return IconButton(
           icon: const Icon(Icons.details_outlined),
           onPressed: () async {
@@ -19,7 +21,7 @@ class ComicDetailButton extends StatelessWidget {
             ),
           );
       },
-          tooltip: "comic detail info",
+          tooltip: "${tr.comics} ${tr.details}",
         );
   }
 }

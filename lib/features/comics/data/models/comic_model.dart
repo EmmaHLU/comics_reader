@@ -14,6 +14,7 @@ class ComicModel extends Comic{
     super.day,
     super.explanation,
     super.localImage,
+    super.isFavorite,
     required super.num,
     required super.img
   });
@@ -34,6 +35,7 @@ class ComicModel extends Comic{
       localImage: json.keys.contains('localImage')? json['localImage']:"",
       day: json['day'] as String?,
       explanation: json['explanation']!= null? json['explanation'] as String?: "", // optional
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
 
@@ -52,6 +54,7 @@ class ComicModel extends Comic{
       'title': title,
       'day': day,
       'explanation': explanation,
+      'isFavorite': isFavorite,
     };
   }
   
@@ -71,6 +74,7 @@ factory ComicModel.fromEntity(Comic entity) {
     title: entity.title,
     day: entity.day,
     explanation: entity.explanation,
+    isFavorite: entity.isFavorite,
   );
 }
 
@@ -90,6 +94,7 @@ Comic toEntity() {
     title: title,
     day: day,
     explanation: explanation,
+    isFavorite: isFavorite
   );
 }
 

@@ -9,7 +9,7 @@ class AppLocalizationsNb extends AppLocalizations {
   AppLocalizationsNb([String locale = 'nb']) : super(locale);
 
   @override
-  String get appTitle => 'Tegneserieleser';
+  String get appTitle => 'TegneserieLeser';
 
   @override
   String get profile => 'Profil';
@@ -18,7 +18,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get comicsCollections => 'Tegneseriesamlinger';
 
   @override
-  String get myFavoriteComics => 'Favoritttegneserier';
+  String get myFavoriteComics => 'Favoritt-tegneserier';
 
   @override
   String get logOut => 'Logg ut';
@@ -87,7 +87,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get news => 'Nyheter';
 
   @override
-  String get safe_title => 'Sikkert tittel';
+  String get safe_title => 'Trygg tittel';
 
   @override
   String get transcript => 'Manus';
@@ -123,8 +123,29 @@ class AppLocalizationsNb extends AppLocalizations {
   String get view => 'Vis';
 
   @override
-  String get favorites => 'Favoritter';
+  String get favorites => 'Favoritt';
 
   @override
   String get reader => 'Leser';
+
+  @override
+  String get failloadfavoriate => 'Kunne ikke laste favorittene mine';
+
+  @override
+  String get failshare => 'Kunne ikke dele tegneserien.';
+
+  @override
+  String get sharesuccess => 'Tegneserien ble delt!';
+
+  @override
+  String get toggleFavorite => 'Bytt favoritt';
+
+  @override
+  String get errorloading => 'Feil ved lasting av tegneserie';
+
+  @override
+  String get enterNumText => 'Skriv inn et tall eller tekst';
+
+  @override
+  String get failexplaination => 'Kunne ikke laste forklaring';
 }

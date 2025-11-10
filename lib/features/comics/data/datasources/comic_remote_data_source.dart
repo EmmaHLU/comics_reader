@@ -35,7 +35,7 @@ abstract class ComicRemoteDataSource {
 
 class ComicRemoteDataSourceImpl implements ComicRemoteDataSource{
   //lazy loading mode list size
-  final int listSize = 50;
+  final int pageSize = 10;
 
   /// Local cache of all comics loaded so far
   List<ComicModel> cachedComics = [];
@@ -77,7 +77,6 @@ class ComicRemoteDataSourceImpl implements ComicRemoteDataSource{
 
   @override
   Future<List<ComicModel>> getComicList() async {
-    const int pageSize = 5;
 
     // Fetch the latest comic number (only needed for the first list)
     if (currentComicNum == -1) {

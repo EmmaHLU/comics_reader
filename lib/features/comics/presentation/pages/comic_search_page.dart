@@ -20,6 +20,12 @@ class _ComicSearchPageState extends State<ComicSearchPage> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _controller.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context)!;
     return GradientScaffold(
@@ -30,8 +36,8 @@ class _ComicSearchPageState extends State<ComicSearchPage> {
           children: [
             TextField(
               controller: _controller,
-              decoration: const InputDecoration(
-                labelText: 'Search by number or text',
+              decoration:  InputDecoration(
+                labelText: tr.enterNumText,
                 border: OutlineInputBorder(),
                 suffixIcon: Icon(Icons.search),
               ),
@@ -48,7 +54,7 @@ class _ComicSearchPageState extends State<ComicSearchPage> {
               child: BlocBuilder<ComicBloc, ComicState>(
                 builder: (context, state) {
                   if (state is ComicSearchingByNumState) {
-                    return const Center(child: Text('Enter a number or text'));
+                    return  Center(child: Text(tr.enterNumText));
                   } else if (state is ComicSearchingByNumState) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is ComicFoundState) {

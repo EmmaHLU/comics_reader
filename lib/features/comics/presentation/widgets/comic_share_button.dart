@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_event.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_state.dart';
@@ -11,6 +12,7 @@ class ComicShareButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context)!;
     return BlocConsumer<ComicBloc, ComicState>(
       listener: (context, state) {
         if (state is ComicSharedState) {
@@ -39,7 +41,7 @@ class ComicShareButton extends StatelessWidget {
               : () {
                   context.read<ComicBloc>().add(ComicShareRequest(num: comicNum));
                 },
-          tooltip: "Share comic",
+          tooltip: "${tr.share} ${tr.comics}",
         );
       },
     );

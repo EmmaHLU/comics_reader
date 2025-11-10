@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learning_assistant/core/localization/l10n/generated/app_localizations.dart';
 import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_event.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_state.dart';
 import 'package:learning_assistant/features/comics/presentation/pages/comic_local_view_page.dart';
-import 'package:learning_assistant/features/comics/presentation/pages/comic_view_page.dart';
 import 'package:learning_assistant/features/comics/presentation/widgets/comic_detail_button.dart';
 import 'package:learning_assistant/features/comics/presentation/widgets/comic_explain_button.dart';
 import 'package:learning_assistant/features/comics/presentation/widgets/comic_share_button.dart';
@@ -47,6 +47,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ComicBloc>().add(ComicLoadFavoriatesRequest());
     });
+    final tr = AppLocalizations.of(context)!;
     
     return BlocConsumer<ComicBloc, ComicState>(
       listener: (context, state) {
@@ -61,7 +62,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
           });
         } else if (state is ComicFavoriateLFailedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Failed to load my favoriates")),
+             SnackBar(content: Text(tr.failloadfavoriate)),
           );
         };   
       },
@@ -71,7 +72,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
         }
         return GradientScaffold(
           appBar: AppBar(
-            title: Text("My Favoriates"),
+            title: Text(tr.myFavoriteComics),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {

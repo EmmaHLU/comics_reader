@@ -15,6 +15,7 @@ class Comic extends Equatable{
   final String? year;
   final String? link;
   final String? explanation;
+  final bool? isFavorite;
 
   const Comic({
     this.localImage,
@@ -27,6 +28,7 @@ class Comic extends Equatable{
     this.alt,
     this.title,
     this.day,
+    this.isFavorite,
     this.explanation,
     required this.num,
     required this.img
@@ -48,6 +50,7 @@ class Comic extends Equatable{
     link,
     news,
     localImage,
+    isFavorite,
   ];
   
   @override

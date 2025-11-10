@@ -34,7 +34,7 @@ class _ComicViewPageState extends State<ComicViewPage> {
   @override
   void initState() {
     super.initState();
-    curIndex = widget.comic.num; // 当前漫画编号
+    curIndex = widget.comic.num; 
     _loadComic(curIndex);
   }
 
@@ -43,7 +43,7 @@ class _ComicViewPageState extends State<ComicViewPage> {
   }
 
   void _onSwipeLeft() {
-    if (curIndex > 1) { // 假设最小编号是 1
+    if (curIndex > 1) { 
       setState(() {
         curIndex -= 1;
       });
@@ -65,6 +65,7 @@ class _ComicViewPageState extends State<ComicViewPage> {
     final tr = AppLocalizations.of(context)!;
 
     return BlocBuilder<ComicBloc, ComicState>(
+      buildWhen: (previous, current)=>current is ComicLoadingState || current is ComicLoadedState || current is ComicFailedState,
       builder: (context, state) {
         Widget content;
 
@@ -75,15 +76,15 @@ class _ComicViewPageState extends State<ComicViewPage> {
           content = Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("${comic.num}/${widget.totalComicNum}"),
+              Text(
+                "${comic.num}/${widget.totalComicNum}", 
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,),
               Expanded(
-                child: ClipRRect(
+                child: RippleFancyCard(child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: (comic.localImage ?? '').isNotEmpty
-                      ? Image.file(File(comic.localImage!))
-                      : Image.network(comic.img),
-                ),
-              ),
+                  child: Image.network(comic.img),
+                ),)),
               const SizedBox(height: 8),
               Text(
                 comic.title!,
@@ -93,7 +94,7 @@ class _ComicViewPageState extends State<ComicViewPage> {
             ],
           );
         } else {
-          content = const Center(child: Text("Error loading comic"));
+          content = Center(child: Text(tr.errorloading));
         }
 
         return GradientScaffold(
@@ -106,7 +107,7 @@ class _ComicViewPageState extends State<ComicViewPage> {
             actions: [
               if (state is ComicLoadedState) ...[
                 ComicShareButton(comicNum: state.comic.num),
-                ComicFavoriateButton(comicNum: state.comic.num),
+                ComicFavoriateButton(comicNum: state.comic.num, isFavoriateInitially:state.comic.isFavorite!),
                 ComicExplainButton(
                   comicNum: state.comic.num,
                   title: state.comic.safeTitle!,
@@ -121,10 +122,8 @@ class _ComicViewPageState extends State<ComicViewPage> {
               if (details.primaryVelocity == null) return;
 
               if (details.primaryVelocity! < 0) {
-                // 向左滑动 → 下一篇漫画
                 _onSwipeLeft();
               } else if (details.primaryVelocity! > 0) {
-                // 向右滑动 → 上一篇漫画
                 _onSwipeRight();
               }
             },

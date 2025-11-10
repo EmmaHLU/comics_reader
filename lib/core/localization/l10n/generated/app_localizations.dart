@@ -334,6 +334,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reader'**
   String get reader;
+
+  /// No description provided for @failloadfavoriate.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load my favoriates'**
+  String get failloadfavoriate;
+
+  /// No description provided for @failshare.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to share comic.'**
+  String get failshare;
+
+  /// No description provided for @sharesuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Comic shared successfully!'**
+  String get sharesuccess;
+
+  /// No description provided for @toggleFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle favorite'**
+  String get toggleFavorite;
+
+  /// No description provided for @errorloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading comic'**
+  String get errorloading;
+
+  /// No description provided for @enterNumText.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number or text'**
+  String get enterNumText;
+
+  /// No description provided for @failexplaination.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load explanation'**
+  String get failexplaination;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

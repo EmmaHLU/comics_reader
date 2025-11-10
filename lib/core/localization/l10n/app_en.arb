@@ -36,8 +36,15 @@
   "notification": "Notification",
   "share":"Share",
   "details": "Details",
-  "search":"Search",
-  "view":"View",
-  "favorites":"Favorite",
-  "reader": "Reader"
+  "search": "Search",
+  "view": "View",
+  "favorites": "Favorite",
+  "reader": "Reader",
+  "failloadfavoriate": "Failed to load my favoriates",
+  "failshare": "Failed to share comic.",
+  "sharesuccess": "Comic shared successfully!",
+  "toggleFavorite": "Toggle favorite",
+  "errorloading": "Error loading comic",
+  "enterNumText": "Enter a number or text",
+  "failexplaination": "Failed to load explanation"
 }

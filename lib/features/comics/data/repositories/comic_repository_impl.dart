@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -6,6 +7,7 @@ import 'package:learning_assistant/core/error/failures.dart';
 import 'package:learning_assistant/core/utils/typedefs.dart';
 import 'package:learning_assistant/features/comics/data/datasources/comic_local_data_source.dart';
 import 'package:learning_assistant/features/comics/data/datasources/comic_remote_data_source.dart';
+import 'package:learning_assistant/features/comics/data/models/comic_model.dart';
 import 'package:learning_assistant/features/comics/domain/entities/comic_entity.dart';
 import 'package:learning_assistant/features/comics/domain/repositories/comic_repository.dart';
 
@@ -35,7 +37,13 @@ class ComicRepositoryImpl implements ComicRepository{
   @override
   Future<Either<Failure, Comic>> getComic({required int comicNum}) async {
     try {
-      final comicModel = await remoteDataSource.getComic(num: comicNum);
+      ComicModel comicModel = await remoteDataSource.getComic(num: comicNum);
+      if(await localDataSource.isFavorite(comicNum: comicModel.num))
+      {
+        Map<String, dynamic> jsonfile = comicModel.toJson();
+        jsonfile['isFavorite'] = true;
+        comicModel = ComicModel.fromJson(jsonfile);
+      }
       return Right(comicModel.toEntity());
     } catch (e) {
       return Left(ServerFailure(e.toString()));

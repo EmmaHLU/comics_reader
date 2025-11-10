@@ -34,6 +34,8 @@ abstract class ComicLocalDataSource {
   /// Throws [CacheException] on failure
   Future<void> deleteSavedComics();
 
+  Future<bool> isFavorite({required int comicNum});
+
 }
 
 class ComicLocalDataSourceImpl implements ComicLocalDataSource {
@@ -145,6 +147,14 @@ class ComicLocalDataSourceImpl implements ComicLocalDataSource {
         await file.delete();
       }
     }
+  }
+
+  @override
+  Future<bool> isFavorite({required int comicNum}) async {
+    if (await FavoriateComicDatabase._instance.existFavoriteComic(comicNum)){
+      return true;
+    }
+    return false;
   }
 
 }
