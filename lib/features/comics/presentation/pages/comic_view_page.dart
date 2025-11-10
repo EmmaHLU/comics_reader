@@ -14,108 +14,127 @@ import 'package:learning_assistant/features/comics/presentation/widgets/comic_sh
 import 'package:learning_assistant/shared/widgets/fancy_card.dart';
 import 'package:learning_assistant/shared/widgets/gradient_scaffold.dart';
 
-class ComicViewPage extends StatefulWidget{
+class ComicViewPage extends StatefulWidget {
   final Comic comic;
+  final int totalComicNum;
 
   const ComicViewPage({
-    super.key, 
+    super.key,
     required this.comic,
+    required this.totalComicNum,
   });
 
   @override
-  State<StatefulWidget> createState() => _ComicViewPageState();
-  
+  State<ComicViewPage> createState() => _ComicViewPageState();
 }
 
-class _ComicViewPageState extends State<ComicViewPage>{
-  late PageController pageController;
-  late Comic comic;
+class _ComicViewPageState extends State<ComicViewPage> {
   late int curIndex;
-  late int oldIndex;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
-    comic = widget.comic;
-    curIndex = comic.num;
-    pageController = PageController(initialPage: curIndex);
+    curIndex = widget.comic.num; // 当前漫画编号
+    _loadComic(curIndex);
   }
-  
+
+  void _loadComic(int num) {
+    context.read<ComicBloc>().add(ComicGetRequest(num: num));
+  }
+
+  void _onSwipeLeft() {
+    if (curIndex > 1) { // 假设最小编号是 1
+      setState(() {
+        curIndex -= 1;
+      });
+      _loadComic(curIndex);
+    }
+  }
+
+  void _onSwipeRight() {
+    if (curIndex < widget.totalComicNum) {
+      setState(() {
+        curIndex += 1;
+      });
+      _loadComic(curIndex);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context)!;
+
     return BlocBuilder<ComicBloc, ComicState>(
-      buildWhen: (previous, current)=>current is ComicLoadingState || current is ComicLoadedState || current is ComicFailedState,
-      builder: (context, state){
-        if (state is ComicLoadingState){
-          return const Center(child: CircularProgressIndicator(),);
-        } else if(state is ComicLoadedState){
+      builder: (context, state) {
+        Widget content;
+
+        if (state is ComicLoadingState) {
+          content = const Center(child: CircularProgressIndicator());
+        } else if (state is ComicLoadedState) {
           final comic = state.comic;
-          return GradientScaffold(
-            appBar: AppBar(
-              title: Text(tr.comics),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context); // Safely go back
-                },
+          content = Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text("${comic.num}/${widget.totalComicNum}"),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: (comic.localImage ?? '').isNotEmpty
+                      ? Image.file(File(comic.localImage!))
+                      : Image.network(comic.img),
+                ),
               ),
-              actions: [
-                ComicShareButton(comicNum: comic.num),
-                ComicFavoriateButton(comicNum: comic.num),
-                ComicExplainButton(comicNum: comic.num, title: comic.safeTitle!,),
-                ComicDetailButton(comic: comic,),
-              ],
-              backgroundColor: Colors.transparent,
-            ),
-            body: PageView.builder(
-              controller:pageController,
-              onPageChanged: (value) => {
-                context.read<ComicBloc>().add(ComicGetRequest(num:value)),
-                setState(() {
-                  curIndex = value;
-                }),
-              },
-              itemBuilder: (context, index){
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 64),
-                  child: RippleFancyCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: (comic.localImage ?? '').isNotEmpty
-                            ? Image.file(
-                                File(comic.localImage!),
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                            comic.img)),
-                          ),
-                        
-                        const SizedBox(height: 8),
-                        Text(
-                          comic.title!,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        ],
-                      ),
-                    ),
-                );
-                }
-            )
+              const SizedBox(height: 8),
+              Text(
+                comic.title!,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
           );
-        }else if (state is ComicFailedState){
-          return Center(child: Text("Error loading comic"),);
-        } else{
-          return const SizedBox.shrink();
+        } else {
+          content = const Center(child: Text("Error loading comic"));
         }
+
+        return GradientScaffold(
+          appBar: AppBar(
+            title: Text(tr.comics),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+            ),
+            actions: [
+              if (state is ComicLoadedState) ...[
+                ComicShareButton(comicNum: state.comic.num),
+                ComicFavoriateButton(comicNum: state.comic.num),
+                ComicExplainButton(
+                  comicNum: state.comic.num,
+                  title: state.comic.safeTitle!,
+                ),
+                ComicDetailButton(comic: state.comic),
+              ]
+            ],
+            backgroundColor: Colors.transparent,
+          ),
+          body: GestureDetector(
+            onHorizontalDragEnd: (details) {
+              if (details.primaryVelocity == null) return;
+
+              if (details.primaryVelocity! < 0) {
+                // 向左滑动 → 下一篇漫画
+                _onSwipeLeft();
+              } else if (details.primaryVelocity! > 0) {
+                // 向右滑动 → 上一篇漫画
+                _onSwipeRight();
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 64),
+              child: content,
+            ),
+          ),
+        );
       },
     );
   }
 }
-  

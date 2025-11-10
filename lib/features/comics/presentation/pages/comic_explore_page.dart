@@ -23,6 +23,8 @@ class ComicExplorePage extends StatefulWidget {
 class _ComicExplorePageState extends State<ComicExplorePage> {
   final ScrollController _scrollController = ScrollController();
   List<Comic> comics = [];
+  late final totalComicNum;
+  bool isFirst = true;
 
   @override
   void initState() {
@@ -46,6 +48,10 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
     return BlocConsumer<ComicBloc, ComicState>(
       listener: (context, state) {
         if (state is ComicsLoadedState) {
+          if (isFirst){
+            isFirst = false;
+            totalComicNum = state.comics[0].num;
+          }
           setState(() {
             comics = state.comics;
           });
@@ -109,7 +115,8 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
                 ),
                 onTap: (){
                   context.read<ComicBloc>().add(ComicGetRequest(num: comic.num));
-                  Navigator.push(context,  MaterialPageRoute(builder:  (_) => ComicViewPage(comic: comic,)));
+                  print("the total number of comics is $totalComicNum");
+                  Navigator.push(context,  MaterialPageRoute(builder:  (_) => ComicViewPage(comic: comic, totalComicNum: totalComicNum,)));
                 },
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
