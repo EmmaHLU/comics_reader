@@ -42,7 +42,7 @@ class ComicDetailPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Safely go back
+            Navigator.pop(context); 
           },
         ),
         backgroundColor: Colors.transparent,
@@ -78,8 +78,7 @@ class ComicDetailPage extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 16),
-
-            /// --- Transcript (if any) ---
+            // transcript
             if (comic.transcript!.isNotEmpty)
               ExpansionTile(
                 title:  Text(tr.transcript),
@@ -95,7 +94,7 @@ class ComicDetailPage extends StatelessWidget {
                 ],
               ),
 
-            /// --- Alt Text ---
+            /// Alt Text 
             if (comic.alt!.isNotEmpty)
               Container(
                 margin: const EdgeInsets.only(top: 8),

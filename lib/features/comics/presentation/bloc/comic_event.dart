@@ -49,6 +49,7 @@ class ComicSaveRequest extends ComicEvent{
   List<Object?> get props => [num];
 }
 
+//load a favoirate comic
 class ComicLoadFavoriateRequest extends ComicEvent{
   final int num;
   const ComicLoadFavoriateRequest({required this.num});
@@ -56,6 +57,7 @@ class ComicLoadFavoriateRequest extends ComicEvent{
   List<Object?> get props => [num];
 }
 
+//load all favoriate comics
 class ComicLoadFavoriatesRequest extends ComicEvent{
   const ComicLoadFavoriatesRequest();
 }

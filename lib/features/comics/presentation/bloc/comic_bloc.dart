@@ -63,7 +63,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
       (comic) => emit(ComicLoadedState(comic: comic)),
     );
   }
-
+  ///bussiness logic to handle get the comic list request
   Future<void> _onComicGetListRequested(
     ComicGetListRequest event,
     Emitter<ComicState> emit,
@@ -75,7 +75,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
       (comics) => emit(ComicsLoadedState(comics: comics)),
     );
   }
-
+  ///bussiness logic to handle search the comic by num request
   Future<void> _onComicSearchNumRequested(
     ComicSearchNumRequest event,
     Emitter<ComicState> emit,
@@ -88,6 +88,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     );
   }
 
+  ///bussiness logic to handle search the comic by text request
    Future<void> _onComicSearchTextRequested(
     ComicSearchTextRequest event,
     Emitter<ComicState> emit,
@@ -100,6 +101,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     );
   }
 
+  ///bussiness logic to handle save the comic request
   Future<void> _onComicSavetRequested(
     ComicSaveRequest event,
     Emitter<ComicState> emit,
@@ -113,6 +115,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     );
   }
 
+  ///bussiness logic to handle get the comic locally request
   Future<void> _onComicLoadFavoriatesRequested(
     ComicLoadFavoriatesRequest event,
     Emitter<ComicState> emit,
@@ -125,6 +128,8 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
       (favoriates) => emit(ComicFavoriateLoadedState(comics: favoriates)),
     );
   }
+
+  ///bussiness logic to handle delete the comic locally request
   Future<void> _onComicDeleteRequested(
     ComicDeleteRequest event,
     Emitter<ComicState> emit,
@@ -138,6 +143,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     );
   }
 
+  ///bussiness logic to handle get the comic explanation request
   Future<void> _onComicExplainRequested(
     ComicExplainRequest event,
     Emitter emit,
@@ -151,6 +157,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
     );
   }
 
+  ///bussiness logic to handle share the comic request
   Future<void> _onComicShareRequested(
     ComicShareRequest event,
     Emitter emit,
@@ -162,6 +169,7 @@ class ComicBloc extends Bloc<ComicEvent, ComicState>{
       (result) => emit(ComicSharedState()));
   }
 
+  ///bussiness logic to handle received the comic notification request
   Future<void> _onNewComicNotificationReceived(
     NewComicNotificationReceived event,
     Emitter emit,

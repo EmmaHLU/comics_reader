@@ -25,7 +25,7 @@ class ComicExplainPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Safely go back
+            Navigator.pop(context);
           },),
         backgroundColor: Colors.transparent,
       ),

@@ -76,7 +76,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.pop(context); // Safely go back
+                Navigator.pop(context);
               },            
             ),
             backgroundColor: Colors.transparent,
@@ -88,7 +88,7 @@ class _FavoriatePageState extends State<FavoriatePage> {
           ),
           body:ListView.builder(
             controller: _scrollController,
-            itemCount: comics.length, // extra item for load more button
+            itemCount: comics.length, 
             itemBuilder: (context, index) {
 
               final comic = comics[index];

@@ -82,7 +82,7 @@ class _ComicExplorePageState extends State<ComicExplorePage> {
             title: Text(tr.explore), backgroundColor: Colors.transparent),
           body: ListView.builder(
             controller: _scrollController,
-            itemCount: comics.length + 1, // extra item for load more button
+            itemCount: comics.length + 1, 
             itemBuilder: (context, index) {
               if (index == comics.length) {
                 return Padding(

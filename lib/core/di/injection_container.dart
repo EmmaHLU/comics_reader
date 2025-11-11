@@ -17,7 +17,6 @@ import 'package:learning_assistant/features/comics/domain/usecases/save_comic.da
 import 'package:learning_assistant/features/comics/domain/usecases/search_comic.dart';
 import 'package:learning_assistant/features/comics/domain/usecases/share_comic.dart';
 import 'package:learning_assistant/features/comics/presentation/bloc/comic_bloc.dart';
-
 import '../../features/auth/data/datasources/auth_local_datasource.dart';
 import '../../features/auth/data/datasources/auth_remote_datasource.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
@@ -29,7 +28,6 @@ import '../../features/auth/domain/usecases/sign_in.dart';
 import '../../features/auth/domain/usecases/sign_out.dart';
 import '../../features/auth/domain/usecases/sign_up.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
-
 import '../../features/profile/data/repositories/profile_repository_impl.dart';
 import '../../features/profile/domain/repositories/profile_repository.dart';
 import '../../features/profile/domain/usecases/get_user_profile.dart';

@@ -1,5 +1,4 @@
 /// Base class for all exceptions thrown in the data layer.
-/// These will be caught and converted to Failures in repositories.
 class AppException implements Exception {
   final String message;
   final String? code;

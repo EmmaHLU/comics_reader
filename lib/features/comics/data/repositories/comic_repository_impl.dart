@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 import 'package:learning_assistant/core/error/failures.dart';
 import 'package:learning_assistant/core/utils/typedefs.dart';
 import 'package:learning_assistant/features/comics/data/datasources/comic_local_data_source.dart';

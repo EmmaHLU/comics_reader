@@ -1,14 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:learning_assistant/features/comics/data/datasources/comic_local_data_source.dart';
+import 'package:learning_assistant/features/comics/data/datasources/comic_remote_data_source.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dartz/dartz.dart';
 import 'package:learning_assistant/features/comics/data/models/comic_model.dart';
 import 'package:learning_assistant/features/comics/data/repositories/comic_repository_impl.dart';
 import 'package:learning_assistant/core/error/failures.dart';
 
+import 'comic_repository_impl_test.mocks.dart';
 
-// import the generated mocks
-import 'local_data_test.mocks.dart';
-import 'remote_data_test.mocks.dart';
+@GenerateMocks([ComicLocalDataSource, ComicRemoteDataSource])
 void main() {
   late MockComicRemoteDataSource mockRemoteDataSource;
   late MockComicLocalDataSource mockLocalDataSource;

@@ -21,7 +21,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     // Register event handlers
     on<ProfileLoadRequested>(_onLoadRequested);
     on<ProfileUpdateDisplayNameRequested>(_onUpdateDisplayNameRequested);
-    on<ProfileUpdatePreferencesRequested>(_onUpdatePreferencesRequested);
   }
 
   Future<void> _onLoadRequested(
@@ -55,20 +54,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     );
   }
 
-  Future<void> _onUpdatePreferencesRequested(
-    ProfileUpdatePreferencesRequested event,
-    Emitter<ProfileState> emit,
-  ) async {
-    final result = await profileRepository.updateUserPreferences(
-      userId: event.userId,
-      preferences: event.preferences,
-    );
-
-    result.fold(
-      (failure) => emit(ProfileError(failure, _getFailureMessage(failure))),
-      (_) => emit(const ProfileUpdated()),
-    );
-  }
+  
 
 
 

@@ -15,7 +15,6 @@ import 'package:learning_assistant/firebase_options.dart';
 import 'package:learning_assistant/shared/theme/theme.dart';
 import 'package:learning_assistant/shared/widgets/gradient_scaffold.dart';
 import 'package:provider/provider.dart';
-import 'package:workmanager/workmanager.dart';
 
 
 
@@ -28,12 +27,6 @@ void main() async{
   final languageProvider = LanguageProvider();
   await languageProvider.loadSaved();
 
-  // Schedule periodic task every hour
-  await Workmanager().registerPeriodicTask(
-    "checkXKCDTask",
-    "checkForNewComic",
-    frequency: Duration(hours: 1),
-  );
   runApp(
     MultiProvider(
       providers: [

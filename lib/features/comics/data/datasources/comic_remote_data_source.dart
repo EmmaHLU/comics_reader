@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:collection/collection.dart'; 
 import 'package:http/http.dart' as http;
 import 'package:learning_assistant/features/comics/data/models/comic_model.dart';
 import 'package:share_plus/share_plus.dart';
@@ -56,7 +56,6 @@ class ComicRemoteDataSourceImpl implements ComicRemoteDataSource{
 
     if (res.statusCode == 200) {
       final data = jsonDecode(res.body);
-      print(data['parse']?['text']);
       final html = data['parse']?['text']?['*'] ?? '';
       return html;
     } else {
@@ -67,13 +66,23 @@ class ComicRemoteDataSourceImpl implements ComicRemoteDataSource{
 
   @override
   Future<ComicModel> getComic({required int num}) async {
+    // Check if the comic is already in the cache
+    final cachedComic = cachedComics.firstWhereOrNull((comic) => comic.num == num);
+
+    if (cachedComic!= null) {
+      return cachedComic;
+    }
+
+    // If not cached, fetch from API
     final res = await http.get(Uri.parse('${AppConstants.baseXkcd}/$num/info.0.json'));
     if (res.statusCode == 200) {
-      return ComicModel.fromJson(jsonDecode(res.body));
+      final comic = ComicModel.fromJson(jsonDecode(res.body));
+      return comic;
     } else {
       throw Exception('Failed to fetch comic $num');
     }
   }
+
 
   @override
   Future<List<ComicModel>> getComicList() async {
@@ -135,7 +144,7 @@ class ComicRemoteDataSourceImpl implements ComicRemoteDataSource{
   @override
   Future<void> shareComic({required int num}) async {
     final link = 'https://xkcd.com/$num';
-    final result = SharePlus.instance.share(ShareParams(
+    SharePlus.instance.share(ShareParams(
       uri: Uri.parse(link),
       subject: 'XKCD Comic #$num',
     ),);

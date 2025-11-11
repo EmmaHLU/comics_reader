@@ -16,15 +16,3 @@ abstract class UseCase<Type, Params> {
 class NoParams {
   const NoParams();
 }
-
-/// Use case for synchronous operations
-abstract class SyncUseCase<Type, Params> {
-  /// Execute the use case synchronously with given [params]
-  Either<Failure, Type> call(Params params);
-}
-
-/// Use case for stream-based operations
-abstract class StreamUseCase<Type, Params> {
-  /// Execute the use case and return a stream of results
-  Stream<Either<Failure, Type>> call(Params params);
-}

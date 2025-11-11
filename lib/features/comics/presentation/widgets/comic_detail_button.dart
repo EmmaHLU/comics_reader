@@ -12,7 +12,7 @@ class ComicDetailButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context)!;
         return IconButton(
-          icon: const Icon(Icons.details_outlined),
+          icon: const Icon(Icons.info_outline),
           onPressed: () async {
             await Navigator.push(
             context,

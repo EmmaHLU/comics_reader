@@ -14,10 +14,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
     required this.authRepository,
   });
 
-  // ========================================
-  // Profile Management
-  // ========================================
-
   @override
   Future<Either<Failure, UserProfile>> getUserProfile(
   ) async {
@@ -64,35 +60,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, Unit>> updatePhotoUrl({
     required String userId,
     required String photoUrl,
-  }) async {
-    return const Right(unit);
-  }
-
-  // ========================================
-  // Preferences
-  // ========================================
-
-  @override
-  Future<Either<Failure, UserPreferences>> getUserPreferences(
-    String userId,
-  ) async {
-    // Preferences would be stored in local storage 
-    return const Right(UserPreferences());
-  }
-
-  @override
-  Future<Either<Failure, Unit>> updateUserPreferences({
-    required String userId,
-    required UserPreferences preferences,
-  }) async {
-    return const Right(unit);
-  }
-
-  @override
-  Future<Either<Failure, Unit>> updatePreference({
-    required String userId,
-    required String key,
-    required dynamic value,
   }) async {
     return const Right(unit);
   }

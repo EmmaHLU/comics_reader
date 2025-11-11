@@ -12,7 +12,7 @@ class ComicExplainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context)!;
      return IconButton(
-          icon: const Icon(Icons.info),
+          icon: const Icon(Icons.help_outline),
           onPressed:() {
             Navigator.push(context, MaterialPageRoute(
               builder: (_) => ComicExplainPage(comicNum: comicNum,title:title,),

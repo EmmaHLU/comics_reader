@@ -67,20 +67,18 @@ class ComicLocalDataSourceImpl implements ComicLocalDataSource {
   Future<void> saveComic({required ComicModel comic}) async {
     final dir = await _getComicsDir();
 
-    // 1️⃣ Download image from network
+    // Download image from network
     final imageBytes = await _downloadImageBytes(comic.img);
     // print(imageBytes);
 
-    // 2️⃣ Save image locally
+    // Save image locally
     final imageDest = File('${dir.path}/${comic.num}.png');
     await imageDest.writeAsBytes(imageBytes, flush: true);
-    // 3️⃣ Save JSON locally
+    // Save JSON locally
     final jsonFile = File('${dir.path}/${comic.num}.json');
-    print(comic.toJson());
     await jsonFile.writeAsString(jsonEncode(comic.toJson()));
-    print('path is ${dir.path}/${comic.num}.json');
 
-    // 4️⃣ Save as favorite in database
+    // Save as favorite in database
     favoriateDB.saveFavoriteComic(comicNum: comic.num);
   }
   @override
@@ -209,14 +207,14 @@ class FavoriateComicDatabase {
   Future<void> removeFavoriteComic({
     required int comicNum,
   }) async {
-    // 1. Read the existing list (or start empty)
+    // Read the existing list (or start empty)
     final comics = (await _store.record('comics').get(_db) as List<dynamic>?)
       ?.cast<int>()
-      .toList() // This creates a new mutable copy
+      .toList() 
       ?? [];
-    // 2. Add the new URL
+    // Add the new URL
     comics.remove(comicNum);
-    // 3. Write back the updated list
+    // Write back the updated list
     await _store.record('comics').put(_db, comics);
   }
   Future<void> removeAllFavoriteComics()async {

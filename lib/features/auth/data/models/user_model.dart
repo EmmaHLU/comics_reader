@@ -5,7 +5,6 @@ import '../../../../core/utils/typedefs.dart';
 import '../../domain/entities/user_entity.dart';
 
 /// Data model for User that extends the domain entity.
-/// This handles serialization/deserialization for Firebase.
 class UserModel extends User {
   const UserModel({
     required super.uid,

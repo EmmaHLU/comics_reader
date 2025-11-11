@@ -30,24 +30,6 @@ abstract class ProfileRepository {
     required String photoUrl,
   });
 
-  // ========================================
-  // Preferences
-  // ========================================
 
-  /// Get user preferences
-  Future<Either<Failure, UserPreferences>> getUserPreferences(String userId);
-
-  /// Update user preferences
-  Future<Either<Failure, Unit>> updateUserPreferences({
-    required String userId,
-    required UserPreferences preferences,
-  });
-
-  /// Update specific preference
-  Future<Either<Failure, Unit>> updatePreference({
-    required String userId,
-    required String key,
-    required dynamic value,
-  });
 
 }
